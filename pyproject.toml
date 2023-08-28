@@ -28,9 +28,9 @@ optional = true
 requests = "^2.31.0"
 
 [tool.poetry.group.lint.dependencies]
-ruff = "^0.0.249"
-mypy = "^0.991"
 black = "^23.1.0"
+mypy = "^0.991"
+ruff = "^0.0.249"
 types-chardet = "^5.0.4.6"
 
 
