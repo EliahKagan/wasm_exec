@@ -24,6 +24,8 @@ jobs:
             experimental: true
     continue-on-error: ${{ matrix.experimental }}
     runs-on: ${{ matrix.os }}-latest
+    env:
+      TEST_TYPE: ${{ matrix.test-type }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -34,7 +36,7 @@ jobs:
           poetry-version: "1.6.1"
           cache-key: ${{ matrix.test-type }}
           install-command: |
-              if [ "${{ matrix.test-type }}" == "core" ]; then
+              if [ "$TEST_TYPE" == "core" ]; then
                 echo "Running core tests, installing dependencies with poetry..."
                 poetry install --only=main,test
               else
@@ -43,7 +45,7 @@ jobs:
               fi
       - name: Run ${{matrix.test-type}} tests
         run: |
-          if [ "${{ matrix.test-type }}" == "core" ]; then
+          if [ "$TEST_TYPE" == "core" ]; then
             make test
           else
             make extended_tests
